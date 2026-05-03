@@ -1,49 +1,60 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
-function App(){
-    // Only need to use TOP
+function App() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
 
-    const [darkMode, setDarkMode] = useState(false)
+  useEffect(() => {
+    const fetchGithubData = async () => {
+      try {
+        setIsLoading(true);
 
-    function onToggleTheme(){
-        setDarkMode(!darkMode)
-        console.log(darkMode)
-    }
+        const response = await fetch(
+          "https://api.github.com/users/rhythamtech"
+        );
 
-    const [count, setCount] = useState(0)
+        if (!response.ok) {
+          throw new Error("Failed to fetch data");
+        }
 
-    // without dep Array
-    // useEffect(()=>{
-    //     console.log("I am Under useEffect")
-    // })
+        const result = await response.json(); 
+        setData(result); 
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setIsLoading(false); 
+      }
+    };
 
-    // with empty dep array
-    // useEffect(()=>{
-    //     console.log("I am Under useEffect with empty dep array")
-    // },
-    // [])
+    fetchGithubData(); 
+  }, []);
 
-    // with dep array
-    useEffect(
-        ()=> {
-            console.log("I am Under useEffect with dep array")
-        },[count]
-    )
+  return (
+    <div style={{ padding: "20px", fontFamily: "Arial" }}>
+      <h1>GitHub Profile</h1>
 
-    return (
-        <div 
-        style = {{
-            height : "100vh",
-            backgroundColor : darkMode ? "#1212" : "#ffff",
-        }}>
-            <button onClick={onToggleTheme}>
-                Toggle Theme
-            </button>
-            <button onClick={()=>{setCount(count +1)}}>
-                Increment
-            </button>
+      {isLoading && <p>Loading...</p>}
+      {error && <p>Error: {error}</p>}
+
+      {data && (
+        <div>
+          <img
+            src={data.avatar_url}
+            alt="avatar"
+            width="100"
+            style={{ borderRadius: "50%" }}
+          />
+          <h2>{data.name}</h2>
+          <p>@{data.login}</p>
+          <p>{data.bio}</p>
+          <p>Followers: {data.followers}</p>
+          <p>Following: {data.following}</p>
+          <p>Public Repos: {data.public_repos}</p>
         </div>
-    )
+      )}
+    </div>
+  );
 }
 
-export default App
+export default App;
