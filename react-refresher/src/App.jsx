@@ -1,13 +1,15 @@
-import H1 from "./H1"
+import { useState } from "react";
 
 function App(){
+    // Only need to use TOP
+
+    const [count, setCount] = useState(0)
+
     return (
         <div>
-            <H1 title = 'Heading H1'/>
-            <H1 title = 'heading h2' desc = 'this is the descriptioon'/>
-            <H1/>
-            <H1/>
-            <H1/>
+            <h1>{count}</h1>
+            <button onClick={()=>setCount(count+1)}>➕</button>
+            <button onClick={()=>setCount(count-1)}>➖</button>
         </div>
     )
 }
