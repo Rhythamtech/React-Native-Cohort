@@ -1,56 +1,103 @@
-# Welcome to your Expo app 👋
+# Simple Notes App Assignment
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A beautiful, functional, and responsive notes application built with React Native and Expo. This project demonstrates folder-based organization, searching, dynamic theme switching, and responsive design.
 
-## Get started
+## 🚀 Features
 
-1. Install dependencies
+- **📂 Folder Organization**: Categorize your notes into folders like Work, Personal, Study, etc.
+- **🔍 Real-time Search**: Quickly find notes by searching through titles and content.
+- **🌓 Dark/Light Mode**: Seamlessly toggle between light and dark themes, with automatic system preference detection.
+- **📱 Responsive Layout**: Optimized for both portrait and landscape orientations, as well as tablet/desktop widths.
+- **🎨 Dynamic Emojis**: Automatically assigns relevant emojis to notes based on their content keywords.
+- **✨ Polished UI**: Clean aesthetic with soft shadows, rounded corners, and smooth transitions.
 
+## 🛠 Tech Stack
+
+- **Framework**: [React Native](https://reactnative.dev/) with [Expo](https://expo.dev/)
+- **Routing**: [Expo Router](https://docs.expo.dev/router/introduction/) (File-based routing)
+- **Styling**: Native StyleSheet with dynamic theme support
+- **Icons**: Emoji-based dynamic icons and custom assets
+- **Safe Area**: `react-native-safe-area-context` for notch and gesture area handling
+
+## 🏁 Getting Started
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) (LTS version recommended)
+- [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
+- [Expo Go](https://expo.dev/go) app on your mobile device (optional, for physical device testing)
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd simple-notes-app-assigment
+   ```
+
+2. Install dependencies:
    ```bash
    npm install
    ```
 
-2. Start the app
+### Running the App
 
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
+Start the development server:
 ```bash
-npm run reset-project
+npx expo start
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+From the Expo CLI, you can:
+- Press `i` to open in the iOS Simulator (macOS only)
+- Press `a` to open in the Android Emulator
+- Press `w` to open in the Web browser
+- Scan the QR code with the Expo Go app on your phone to run on a physical device
 
-### Other setup steps
+## 📁 Project Structure
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+```text
+├── src/
+│   └── app/            # Expo Router entry points and screens
+│       ├── _layout.tsx # Root layout configuration
+│       └── index.tsx   # Main Notes screen implementation
+├── assets/             # Images, fonts, and icons
+├── example/            # Reference implementation/starter code
+├── package.json        # Dependencies and scripts
+└── app.json            # Expo configuration
+```
 
-## Learn more
+## 🌓 Theming and Styling
 
-To learn more about developing your project with Expo, look at the following resources:
+The application features a robust theming system that supports both Light and Dark modes:
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+- **System Detection**: By default, the app uses the `useColorScheme` hook to match the user's system-wide appearance settings.
+- **Manual Override**: Users can manually toggle the theme using the sun/moon icon in the header, which overrides the system setting via local state.
+- **Dynamic Styles**: Styles are managed through separate `lightStyles` and `darkStyles` objects. The active theme is dynamically computed and applied to components throughout the application.
+- **Adaptive UI**: Specific elements like the `StatusBar` and background colors automatically adjust to ensure high contrast and readability in both modes.
 
-## Join the community
+## 🧩 Core Architecture
 
-Join our community of developers creating universal apps.
+### Key Components
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- **`NotesFolder`**: A pressable component that displays folder icons and titles, used for filtering notes by category.
+- **`NotesItem`**: Displays individual note previews including a title, truncated text, a dynamic emoji icon, and alternating background colors.
+- **`Index (Screen)`**: The primary entry point that orchestrates state management, searching, and the responsive layout.
+
+### React Hooks Used
+
+- **`useState`**: Manages search queries, folder selection, and manual theme overrides.
+- **`useColorScheme`**: Detects the system-wide color scheme (light/dark) for automatic theme switching.
+- **`useWindowDimensions`**: Powers the responsive design by detecting screen width to adjust column counts and padding.
+- **`useSafeAreaInsets`**: Ensures proper spacing around notches, home indicators, and status bars.
+
+### UI Components
+
+- **`FlatList`**: Used for efficient rendering of both the horizontal folder list and the vertical notes grid.
+- **`TextInput`**: Provides the interface for the real-time search functionality.
+- **`Pressable`**: Handles interactions for folders, notes, and the theme toggle.
+- **`Image (expo-image)`**: Handles optimized image loading for folder icons.
+- **`SafeAreaView`**: Provides a secure boundary for content across different device types.
+
+## 📄 License
+
+This project is for assignment purposes.
